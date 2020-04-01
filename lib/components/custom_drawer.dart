@@ -2,8 +2,16 @@ import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  AuthServices _authServices = AuthServices();
+
   double height;
+
   @override
   Widget build(BuildContext context) {
     height = Services.height(context);
@@ -34,26 +42,51 @@ class CustomDrawer extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Divider(),
-                  ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, Login.pageRoute);
-                    },
-                    title: Text(
-                      "Log In / Sign Up",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "SulphurPoint",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    leading: IconButton(
-                      icon: Image.asset("assets/icons/Profile_Picture.png"),
-                      onPressed: () {
-                        //
-                      },
-                    ),
-                  ),
+                  !AuthServices.isSignedIn
+                      ? ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(context, Login.pageRoute);
+                          },
+                          title: Text(
+                            "Log In / Sign Up",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "SulphurPoint",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          leading: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                            child: Image.asset(
+                              "assets/icons/user.png",
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
+                      : ListTile(
+                          onTap: () {
+                            //
+                          },
+                          title: Text(
+                            "Umair Jibran",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "SulphurPoint",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          leading: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                            child: Image.asset(
+                              "assets/icons/user.png",
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
                   ListTile(
                     onTap: () {
                       //
@@ -91,13 +124,11 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    leading: IconButton(
-                      icon: Image.asset(
+                    leading: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Image.asset(
                         "assets/icons/support.png",
                       ),
-                      onPressed: () {
-                        //
-                      },
                     ),
                   ),
                   ListTile(
@@ -117,6 +148,7 @@ class CustomDrawer extends StatelessWidget {
                       icon: Icon(
                         Icons.bug_report,
                         color: Colors.black,
+                        size: 30,
                       ),
                       onPressed: () {
                         //
@@ -146,6 +178,33 @@ class CustomDrawer extends StatelessWidget {
                       },
                     ),
                   ),
+                  AuthServices.isSignedIn
+                      ? ListTile(
+                          onTap: () async {
+                            await _authServices.signOut();
+                            setState(() {
+                              AuthServices.isSignedIn = false;
+                            });
+                          },
+                          title: Text(
+                            "Sign Out",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "SulphurPoint",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          leading: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                            child: Image.asset(
+                              "assets/icons/sign_out.png",
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
                 ],
               ),
             ),
