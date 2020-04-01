@@ -17,13 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   double width;
   @override
   Widget build(BuildContext context) {
-    Services.loaded
-        ? Services.loaded = true
-        : Services.fetchData().then((_) {
-            setState(() {
-              Services.loaded = true;
-            });
-          });
     width = Services.width(context);
     height = Services.height(context);
     return DefaultTabController(
@@ -85,13 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: CustomDrawer(),
         body: TabBarView(
           children: [
-            Services.loaded
-                ? CategoriesTab()
-                : Scaffold(
-                    body: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
+            CategoriesTab(),
             FavouritesTab(),
             // PopularTab(), //TODO: Complete the Logic
           ],
