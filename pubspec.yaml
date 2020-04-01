@@ -1,0 +1,45 @@
+name: cook_book
+description: A new Flutter project.
+version: 1.0.0+1
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  bloc:
+  flutter_bloc:
+  cupertino_icons:
+  equatable:
+  share:
+  firebase_auth:
+  firebase_core:
+  firebase_analytics:
+  http: 
+  firebase_storage:
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:  
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Angostura-Gaunt
+      fonts:
+        - asset: assets/fonts/Angostura-Gaunt.ttf
+    - family: AtlandSketches-BB
+      fonts:
+        - asset: assets/fonts/AtlandSketches-BB.ttf
+    - family: Brushed
+      fonts:
+        - asset: assets/fonts/Brushed.ttf
+    - family: SulphurPoint
+      fonts:
+        - asset: assets/fonts/SulphurPoint-Regular.ttf
+        - asset: assets/fonts/SulphurPoint-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SulphurPoint-Bold.ttf
+          weight: 700
+module:
+  androidX: true
