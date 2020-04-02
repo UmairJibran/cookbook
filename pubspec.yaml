@@ -18,6 +18,8 @@ dependencies:
   firebase_storage:
   cloud_firestore:
   flutter_spinkit:
+  animated_text_kit: 
+  toast:
 dev_dependencies:
   flutter_test:
     sdk: flutter

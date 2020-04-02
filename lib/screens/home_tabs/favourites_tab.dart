@@ -32,12 +32,22 @@ class _FavouritesTabState extends State<FavouritesTab> {
                   ).toList(),
                 )
               : Container(
-                  child: Center(
-                    child: Text(
-                      "No Meal Favourited\nyet!",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.display4,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "¯\\_(ツ)_/¯",
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                      Text(
+                        "No Meal Favourited\nyet!",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.display4,
+                      ),
+                      SizedBox(height: 80),
+                    ],
                   ),
                 )
           : Center(

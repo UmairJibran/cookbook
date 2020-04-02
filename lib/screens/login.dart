@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: SingleChildScrollView(
         child: _loading
-            ? Loading()
+            ? Loading(label: "Loging in")
             : Container(
                 height: height - 30,
                 width: width,
@@ -214,11 +214,10 @@ class _LoginState extends State<Login> {
                             ),
                             color: Theme.of(context).accentColor,
                             onPressed: () async {
-                              setState(() {
-                                _loading = true;
-                              });
-                              print(_loading);
                               if (_key.currentState.validate()) {
+                                setState(() {
+                                  _loading = true;
+                                });
                                 _key.currentState.save();
                                 dynamic result = await widget.authServices
                                     .loginWithEmailAndPassword(
@@ -229,7 +228,6 @@ class _LoginState extends State<Login> {
                                   setState(() {
                                     _loading = false;
                                   });
-                                  print(_loading);
                                   print("Couldn't sign in");
                                 } else {
                                   AuthServices.isSignedIn = true;

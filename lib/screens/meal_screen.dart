@@ -1,8 +1,10 @@
 import 'package:cook_book/data/dummy_data.dart';
 import 'package:cook_book/models/category.dart';
 import 'package:cook_book/models/meal.dart';
+import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class MealScreen extends StatefulWidget {
   static String pageRoute = "/meal_screen";
@@ -199,23 +201,33 @@ class _MealScreenState extends State<MealScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          setState(
-                            () {
-                              final existingIndex = DUMMY.favMeals.indexWhere(
-                                  (meal) => meal.mealID == widget.meal.mealID);
-                              if (widget.meal.liked) {
-                                print("Unliked");
-                                DUMMY.favMeals.removeAt(existingIndex);
-                                print("Lenght: ${DUMMY.favMeals.length}");
-                              } else {
-                                DUMMY.favMeals.add(widget.meal);
-                                print("Liked");
-                                print("Lenght: ${DUMMY.favMeals.length}");
-                              }
+                          !AuthServices.isSignedIn
+                              ? Toast.show(
+                                  "Please Log in to Favourite a Meal",
+                                  context,
+                                  duration: Toast.LENGTH_LONG,
+                                  backgroundColor:
+                                      Theme.of(context).accentColor,
+                                  gravity: Toast.CENTER,
+                                )
+                              : setState(
+                                  () {
+                                    final existingIndex = DUMMY.favMeals
+                                        .indexWhere((meal) =>
+                                            meal.mealID == widget.meal.mealID);
+                                    if (widget.meal.liked) {
+                                      print("Unliked");
+                                      DUMMY.favMeals.removeAt(existingIndex);
+                                      print("Lenght: ${DUMMY.favMeals.length}");
+                                    } else {
+                                      DUMMY.favMeals.add(widget.meal);
+                                      print("Liked");
+                                      print("Lenght: ${DUMMY.favMeals.length}");
+                                    }
 
-                              widget.meal.liked = !widget.meal.liked;
-                            },
-                          );
+                                    widget.meal.liked = !widget.meal.liked;
+                                  },
+                                );
                         },
                         child: Icon(
                           Icons.favorite_border,
