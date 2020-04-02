@@ -189,8 +189,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     _loading = true;
                                   });
                                   await _authServices.signOut();
-                                  setState(() {
-                                    AuthServices.isSignedIn = _loading = false;
+                                  Future.delayed(
+                                      const Duration(milliseconds: 500), () {
+                                    setState(() {
+                                      AuthServices.isSignedIn =
+                                          _loading = false;
+                                    });
                                   });
                                 },
                                 title: Text(

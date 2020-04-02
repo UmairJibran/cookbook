@@ -9,8 +9,7 @@ main() {
       DeviceOrientation.portraitUp,
     ],
   );
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Color(0xff6B12D1)));
+
   runApp(
     MyApp(),
   );

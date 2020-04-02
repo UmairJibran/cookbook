@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'home_screen.dart';
 
 class SignUp extends StatefulWidget {
-  static String pageRoute = "/signUp";
-  AuthServices authServices = AuthServices();
+  static final String pageRoute = "/signUp";
+  final AuthServices authServices = AuthServices();
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -17,7 +17,7 @@ class _SignUpState extends State<SignUp> {
   bool _loading = false;
   double height;
   double width;
-  final _formKey = GlobalKey<FormState>();
+  var _formKey = GlobalKey<FormState>();
   String _completeName = '';
   String _email = '';
   String _password = '';

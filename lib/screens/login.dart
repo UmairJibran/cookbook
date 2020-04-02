@@ -12,7 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  static final _key = GlobalKey<FormState>();
+  var _key = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
   double height;

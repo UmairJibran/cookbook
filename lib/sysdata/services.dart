@@ -15,6 +15,18 @@ class Services {
 
 class AuthServices {
   static bool isSignedIn;
+  //Check if user is signed in or not
+  static void checkUser() {
+    FirebaseAuth.instance.currentUser().then((firebaseUser) {
+      if (firebaseUser == null) {
+        AuthServices.isSignedIn = false;
+      } else {
+        AuthServices.isSignedIn = true;
+        Services.displayName = firebaseUser.displayName;
+        // print(firebaseUser.displayName);
+      }
+    });
+  }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -47,6 +59,8 @@ class AuthServices {
       updateInfo.displayName = displayName;
       await user.updateProfile(updateInfo);
       await user.reload();
+      print(user.displayName);
+      Services.displayName = displayName;
       return _localUser(user);
     } catch (exception) {
       print(exception.toString());
@@ -75,6 +89,7 @@ class AuthServices {
             Duration(seconds: 15),
           );
       FirebaseUser user = result.user;
+      Services.displayName = user.displayName;
       return _localUser(user);
     } catch (exception) {
       print(exception.toString());

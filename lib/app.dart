@@ -3,7 +3,6 @@ import 'package:cook_book/screens/home_screen.dart';
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cook_book/screens/meal_screen.dart';
 import 'package:cook_book/screens/signup.dart';
 import 'package:flutter/material.dart';
@@ -11,15 +10,7 @@ import 'package:flutter/material.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.currentUser().then((firebaseUser) {
-      if (firebaseUser == null) {
-        AuthServices.isSignedIn = false;
-      } else {
-        AuthServices.isSignedIn = true;
-        Services.displayName = firebaseUser.displayName;
-        // print(firebaseUser.displayName);
-      }
-    });
+    AuthServices.checkUser();
     return MaterialApp(
       routes: {
         "/": (ctx) => HomeScreen(),
