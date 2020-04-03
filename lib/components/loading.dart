@@ -8,7 +8,7 @@ class Loading extends StatelessWidget {
   double width;
   final String label;
 
-  Loading({@required this.label});
+  Loading({this.label = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class Loading extends StatelessWidget {
           SizedBox(
             width: 250.0,
             child: ScaleAnimatedTextKit(
-                text: [label, label, label, label, label, label, label, label],
+                text: [label, label, label],
                 textStyle: TextStyle(
                   fontSize: 50.0,
                   fontFamily: "SulphurPoint",

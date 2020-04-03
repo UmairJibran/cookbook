@@ -1,6 +1,4 @@
-import 'package:cook_book/bloc/navigation_bloc.dart';
 import 'package:cook_book/models/meal.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../components/meal_card.dart';
 import '../sysdata/services.dart';

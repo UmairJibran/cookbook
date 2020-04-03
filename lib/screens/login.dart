@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/components/loading.dart';
+import 'package:cook_book/components/password_reset_dialog_box.dart';
 import 'package:cook_book/screens/home_screen.dart';
 import 'package:cook_book/screens/signup.dart';
 import 'package:cook_book/sysdata/services.dart';
@@ -168,6 +170,13 @@ class _LoginState extends State<Login> {
                               child: FlatButton(
                                 onPressed: () {
                                   //TODO: set for Forgotten Password
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => PasswordReset(
+                                      height: height,
+                                      width: width,
+                                    ),
+                                  );
                                 },
                                 child: Text(
                                   "Forgotten Password?",

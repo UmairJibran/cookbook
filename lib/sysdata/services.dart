@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,29 +16,62 @@ class Services {
 
 class AuthServices {
   static bool isSignedIn;
+  //get user's display name
+  void getUserName(String uid) {
+    Firestore.instance.collection("users").getDocuments().then(
+      (QuerySnapshot snapshot) {
+        snapshot.documents.forEach(
+          (user) {
+            if (user.documentID == uid) {
+              print(user['name']);
+              Services.displayName = user['name'];
+            }
+          },
+        );
+      },
+    );
+  }
+
   //Check if user is signed in or not
   static void checkUser() {
-    FirebaseAuth.instance.currentUser().then((firebaseUser) {
-      if (firebaseUser == null) {
-        AuthServices.isSignedIn = false;
-      } else {
-        AuthServices.isSignedIn = true;
-        Services.displayName = firebaseUser.displayName;
-        // print(firebaseUser.displayName);
-      }
-    });
+    FirebaseAuth.instance.currentUser().then(
+      (firebaseUser) {
+        if (firebaseUser == null) {
+          AuthServices.isSignedIn = false;
+        } else {
+          AuthServices.isSignedIn = true;
+          Firestore.instance.collection("users").getDocuments().then(
+            (QuerySnapshot snapshot) {
+              snapshot.documents.forEach((user) {
+                if (user.documentID == firebaseUser.uid) {
+                  print(user['name']);
+                  Services.displayName = user['name'];
+                }
+              });
+            },
+          );
+        }
+      },
+    );
   }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   //User object based on FirebaseUser
-
   User _localUser(FirebaseUser user) {
-    return user != null
-        ? User(uid: user.uid, userName: user.displayName)
-        : null;
+    return user != null ? User(uid: user.uid) : null;
   }
-  //TODO: forgotten Password
+
+  //forgotten Password
+  bool forgottenPassword(String email) {
+    try {
+      _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (exception) {
+      print(exception.toString());
+      return false;
+    }
+  }
 
   //Sign Up with email and password
   Future registerWithEmailAndPassword({
@@ -55,12 +89,12 @@ class AuthServices {
             Duration(seconds: 15),
           );
       FirebaseUser user = result.user;
-      UserUpdateInfo updateInfo = UserUpdateInfo();
-      updateInfo.displayName = displayName;
-      await user.updateProfile(updateInfo);
-      await user.reload();
-      print(user.displayName);
-      Services.displayName = displayName;
+      Firestore.instance.collection("users").document(user.uid).setData(
+        {'name': displayName, 'email': email},
+      ).timeout(
+        Duration(seconds: 10),
+      );
+      getUserName(result.user.uid);
       return _localUser(user);
     } catch (exception) {
       print(exception.toString());
@@ -89,7 +123,7 @@ class AuthServices {
             Duration(seconds: 15),
           );
       FirebaseUser user = result.user;
-      Services.displayName = user.displayName;
+      getUserName(result.user.uid);
       return _localUser(user);
     } catch (exception) {
       print(exception.toString());
