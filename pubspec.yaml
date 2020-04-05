@@ -2,7 +2,7 @@ name: cook_book
 description: A new Flutter project.
 version: 1.0.0+1
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -16,10 +16,10 @@ dependencies:
   firebase_analytics:
   http: 
   firebase_storage:
-  cloud_firestore:
   flutter_spinkit:
   animated_text_kit: 
   toast:
+  cloud_firestore:
 dev_dependencies:
   flutter_test:
     sdk: flutter

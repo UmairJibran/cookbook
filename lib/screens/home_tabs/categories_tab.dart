@@ -1,11 +1,17 @@
-import '../../components/category_card.dart';
-import '../../data/dummy_data.dart';
+import 'package:cook_book/components/loading.dart';
 import '../../sysdata/services.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesTab extends StatelessWidget {
+class CategoriesTab extends StatefulWidget {
+  @override
+  _CategoriesTabState createState() => _CategoriesTabState();
+}
+
+class _CategoriesTabState extends State<CategoriesTab> {
   double height;
   double width;
+  bool categoriesHasData = false;
+
   @override
   Widget build(BuildContext context) {
     height = Services.height(context);
@@ -13,20 +19,11 @@ class CategoriesTab extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      child: (DUMMY.dummyCategories.length < 1)
-          ? Container(
-              child: Center(
-                child: Text(
-                  "Nothing Found",
-                ),
-              ),
-            )
+      child: (!categoriesHasData)
+          ? Loading(label: 'Searching for Data')
           : ListView.builder(
-              itemCount: DUMMY.dummyCategories.length,
-              itemBuilder: (_, index) {
-                return CategoryCard(
-                  currentCategory: DUMMY.dummyCategories[index],
-                );
+              itemBuilder: (_, i) {
+                return;
               },
             ),
     );
