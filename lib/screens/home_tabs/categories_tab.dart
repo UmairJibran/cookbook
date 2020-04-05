@@ -1,11 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/components/loading.dart';
+import 'package:cook_book/models/meal.dart';
+
 import '../../components/category_card.dart';
-import '../../data/dummy_data.dart';
 import '../../sysdata/services.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesTab extends StatelessWidget {
+class CategoriesTab extends StatefulWidget {
+  @override
+  _CategoriesTabState createState() => _CategoriesTabState();
+}
+
+class _CategoriesTabState extends State<CategoriesTab> {
+  List<Map<String, dynamic>> _meals = [];
   double height;
   double width;
+  bool categoriesHasData = false;
+  Firestore firestore = Firestore.instance;
+  var categories;
+  @override
+  void initState() {
+    super.initState();
+    categories = firestore
+        .collection('categories')
+        .document('sp')
+        .collection('meals')
+        .document('sp001')
+        .get()
+        .then(
+      (snapshot) {
+        print(snapshot['mealIngredients']);
+        print(snapshot['prepSteps']);
+        // print(snapshot['']);
+        setState(() {
+          categoriesHasData = true;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     height = Services.height(context);
@@ -13,20 +46,11 @@ class CategoriesTab extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      child: (DUMMY.dummyCategories.length < 1)
-          ? Container(
-              child: Center(
-                child: Text(
-                  "Nothing Found",
-                ),
-              ),
-            )
+      child: (!categoriesHasData)
+          ? Loading(label: 'Searching for Data')
           : ListView.builder(
-              itemCount: DUMMY.dummyCategories.length,
-              itemBuilder: (_, index) {
-                return CategoryCard(
-                  currentCategory: DUMMY.dummyCategories[index],
-                );
+              itemBuilder: (_, i) {
+                return;
               },
             ),
     );
