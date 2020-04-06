@@ -85,6 +85,7 @@ class _LoginState extends State<Login> {
                         right: 20,
                       ),
                       child: Form(
+                        autovalidate: true,
                         key: _key,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

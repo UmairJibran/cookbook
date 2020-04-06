@@ -1,42 +1,68 @@
+import 'package:cook_book/components/loading.dart';
+import 'package:cook_book/models/category.dart';
 import 'package:cook_book/models/meal.dart';
 
 import '../components/meal_card.dart';
 import '../sysdata/services.dart';
 import 'package:flutter/material.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   static String pageRoute = "/category_screen";
-  final List<Meal> meals;
-  final String catName;
-  double height;
-  double width;
+  final Category category;
+  static bool mealsHasData = false;
+  static List<Meal> loadedMeals;
 
-  CategoryScreen({this.meals, this.catName});
+  CategoryScreen({this.category});
+
+  @override
+  _CategoryScreenState createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  double height;
+
+  double width;
 
   @override
   Widget build(BuildContext context) {
+    print("number of categories ${CategoryScreen.loadedMeals.length}");
     height = Services.height(context);
     width = Services.width(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "$catName",
-          // style: Theme.of(context).textTheme.body1,
+          "${widget.category.catName}",
         ),
       ),
-      body: Container(
-        height: height,
-        width: width,
-        child: ListView(
-          children: meals.map(
-            (meal) {
-              return MealCard(
-                meal: meal,
-              );
-            },
-          ).toList(),
-        ),
-      ),
+      body: !CategoryScreen.mealsHasData
+          ? Loading(
+              label: "Loading Meals",
+            )
+          : Container(
+              height: height,
+              width: width,
+              child: CategoryScreen.loadedMeals.length < 1
+                  ? Center(
+                      child: Text(
+                        'Couldn\'t load meals',
+                        style: TextStyle(
+                          fontFamily: "SulphurPoint",
+                          fontSize: 30.0,
+                        ),
+                      ),
+                    )
+                  : ListView(
+                      children: CategoryScreen.loadedMeals.map(
+                        (meal) {
+                          if (widget.category.catID == meal.catID)
+                            return MealCard(
+                              meal: meal,
+                            );
+                          return Loading(label: 'loading');
+                        },
+                      ).toList(),
+                    ),
+            ),
     );
   }
 }

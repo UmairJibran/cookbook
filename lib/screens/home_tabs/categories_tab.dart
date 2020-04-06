@@ -1,8 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/components/category_card.dart';
 import 'package:cook_book/components/loading.dart';
+import 'package:cook_book/models/category.dart';
 import '../../sysdata/services.dart';
 import 'package:flutter/material.dart';
 
+Firestore firestore = Firestore.instance;
+
 class CategoriesTab extends StatefulWidget {
+  static bool categoriesHasData = false;
+  static List<Category> loadedCategories;
   @override
   _CategoriesTabState createState() => _CategoriesTabState();
 }
@@ -10,7 +17,6 @@ class CategoriesTab extends StatefulWidget {
 class _CategoriesTabState extends State<CategoriesTab> {
   double height;
   double width;
-  bool categoriesHasData = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +25,15 @@ class _CategoriesTabState extends State<CategoriesTab> {
     return Container(
       height: height,
       width: width,
-      child: (!categoriesHasData)
+      child: (!CategoriesTab.categoriesHasData)
           ? Loading(label: 'Searching for Data')
           : ListView.builder(
               itemBuilder: (_, i) {
-                return;
+                return CategoryCard(
+                  currentCategory: CategoriesTab.loadedCategories[i],
+                );
               },
+              itemCount: CategoriesTab.loadedCategories.length,
             ),
     );
   }

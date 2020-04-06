@@ -1,6 +1,7 @@
-import 'package:cook_book/bloc/navigation_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/meal_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/meal.dart';
 
@@ -12,19 +13,20 @@ class MealCard extends StatelessWidget {
   double width;
   double height;
   MealCard({this.meal});
+  bool liked = false;
+  bool checkIfLiked() {
+    return UserData.likedMealsID.contains(meal.mealID);
+  }
+
   @override
   Widget build(BuildContext context) {
+    liked = checkIfLiked();
     width = Services.width(context);
     height = Services.height(context);
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          // BlocProvider.of<NavigationBloc>(context).add(
-          //   MealTapped(
-          //     meal: meal,
-          //   ),
-          // );
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) => MealScreen(
@@ -48,7 +50,7 @@ class MealCard extends StatelessWidget {
               child: Container(
                 height: height * 0.08,
                 width: width,
-                color: (meal.liked) ? Color(0xbfFCFECC) : Color(0xbfEBF4FF),
+                color: (liked) ? Color(0xbfFCFECC) : Color(0xbfEBF4FF),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

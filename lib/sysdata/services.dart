@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/models/meal.dart';
 import 'package:cook_book/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -89,8 +90,12 @@ class AuthServices {
             Duration(seconds: 15),
           );
       FirebaseUser user = result.user;
-      Firestore.instance.collection("users").document(user.uid).setData(
-        {'name': displayName, 'email': email},
+      await Firestore.instance.collection("users").document(user.uid).setData(
+        {
+          'name': displayName,
+          'email': email,
+          'favMeals': [],
+        },
       ).timeout(
         Duration(seconds: 10),
       );

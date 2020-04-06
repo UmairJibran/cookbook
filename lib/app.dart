@@ -1,13 +1,67 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/category_screen.dart';
 import 'package:cook_book/screens/home_screen.dart';
+import 'package:cook_book/screens/home_tabs/categories_tab.dart';
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
 
 import 'package:cook_book/screens/meal_screen.dart';
 import 'package:cook_book/screens/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
+import 'models/category.dart';
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  CollectionReference categoriesReference = firestore.collection('categories');
+  @override
+  void initState() {
+    super.initState();
+    CategoriesTab.loadedCategories = [];
+    getCategories();
+    getFavMeals();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  getFavMeals() async {
+    String userID;
+    await FirebaseAuth.instance.currentUser().then((user) {
+      userID = user.uid.toString();
+    });
+    DocumentSnapshot favMealsFromFirestore =
+        await Firestore.instance.collection('users').document(userID).get();
+
+    await favMealsFromFirestore.data['favMeals'].forEach(
+      (mealID) {
+        UserData.likedMealsID.add(mealID);
+      },
+    );
+  }
+
+  getCategories() async {
+    QuerySnapshot catDocs = await categoriesReference.getDocuments();
+    catDocs.documents.forEach(
+      (doc) {
+        CategoriesTab.loadedCategories.add(Category.fromFirestore(doc));
+      },
+    );
+    setState(
+      () {
+        CategoriesTab.categoriesHasData = true;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     AuthServices.checkUser();
@@ -43,7 +97,6 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
             fontFamily: "Brushed",
             fontSize: 55,
-            backgroundColor: Colors.black12,
           ),
           subtitle: TextStyle(
             fontSize: 16,

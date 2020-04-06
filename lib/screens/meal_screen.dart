@@ -1,8 +1,10 @@
-import 'package:cook_book/data/dummy_data.dart';
-import 'package:cook_book/models/category.dart';
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/models/meal.dart';
-import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
@@ -17,9 +19,15 @@ class MealScreen extends StatefulWidget {
 class _MealScreenState extends State<MealScreen> {
   double height;
   double width;
-  int selected = 0;
+  int selected;
+  bool liked = false;
+  bool checkIfLiked() {
+    return UserData.likedMealsID.contains(widget.meal.mealID);
+  }
+
   @override
   Widget build(BuildContext context) {
+    liked = checkIfLiked();
     height = Services.height(context);
     width = Services.width(context);
     return Scaffold(
@@ -88,7 +96,7 @@ class _MealScreenState extends State<MealScreen> {
           ),
           Container(
             width: width * 0.9,
-            height: height * 0.42,
+            height: height * 0.41,
             margin: EdgeInsets.only(
               top: 10,
             ),
@@ -134,7 +142,7 @@ class _MealScreenState extends State<MealScreen> {
                                 children: widget.meal.mealIngredients.map(
                                   (ingredient) {
                                     return Text(
-                                      ingredient,
+                                      ingredient.toString(),
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontFamily: "SulphurPoint",
@@ -171,7 +179,7 @@ class _MealScreenState extends State<MealScreen> {
                                 children: widget.meal.prepSteps.map(
                                   (step) {
                                     return Text(
-                                      "$step",
+                                      "- ${step.toString()}",
                                       style: TextStyle(
                                         fontFamily: "SulphurPoint",
                                         fontSize: 18,
@@ -193,9 +201,7 @@ class _MealScreenState extends State<MealScreen> {
                   child: Stack(
                     children: <Widget>[
                       Icon(
-                        (widget.meal.liked)
-                            ? Icons.favorite
-                            : Icons.favorite_border,
+                        (liked) ? Icons.favorite : Icons.favorite_border,
                         color: Color(0xffFF0000),
                         size: 28,
                       ),
@@ -212,20 +218,8 @@ class _MealScreenState extends State<MealScreen> {
                                 )
                               : setState(
                                   () {
-                                    final existingIndex = DUMMY.favMeals
-                                        .indexWhere((meal) =>
-                                            meal.mealID == widget.meal.mealID);
-                                    if (widget.meal.liked) {
-                                      print("Unliked");
-                                      DUMMY.favMeals.removeAt(existingIndex);
-                                      print("Lenght: ${DUMMY.favMeals.length}");
-                                    } else {
-                                      DUMMY.favMeals.add(widget.meal);
-                                      print("Liked");
-                                      print("Lenght: ${DUMMY.favMeals.length}");
-                                    }
-
-                                    widget.meal.liked = !widget.meal.liked;
+                                    if (liked) {
+                                    } else {}
                                   },
                                 );
                         },

@@ -91,6 +91,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       child: Form(
                         key: _formKey,
+                        autovalidate: true,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[

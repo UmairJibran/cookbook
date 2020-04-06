@@ -1,4 +1,4 @@
-import 'package:cook_book/models/meal.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Category {
@@ -6,12 +6,18 @@ class Category {
   String catName;
   String catImageURL;
 
-  List<Meal> meals;
-
   Category({
     @required this.catID,
     @required this.catImageURL,
     @required this.catName,
-    @required this.meals,
   });
+
+  factory Category.fromFirestore(DocumentSnapshot doc) {
+    return Category(
+      catID: doc['catID'],
+      catImageURL: doc['catImageURL'],
+      catName: doc['catName'],
+    );
+  }
+  //TODO: calculate number of meals for each category
 }
