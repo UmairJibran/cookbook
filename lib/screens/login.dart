@@ -14,12 +14,24 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  var _key = GlobalKey<FormState>();
+  var _key;
   String _email = '';
   String _password = '';
   double height;
   double width;
   bool _loading = false;
+  @override
+  void initState() {
+    super.initState();
+    _key = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _key.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     height = Services.height(context);

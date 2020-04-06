@@ -45,10 +45,8 @@ class _CategoryCardState extends State<CategoryCard> {
         CategoryScreen.mealsHasData = true;
       },
     );
-    getLikedMeals();
   }
 
-  getLikedMeals() async {}
   @override
   Widget build(BuildContext context) {
     width = Services.width(context);

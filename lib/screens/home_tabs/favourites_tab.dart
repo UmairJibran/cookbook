@@ -1,9 +1,12 @@
+import 'package:cook_book/components/loading.dart';
 import 'package:cook_book/components/meal_card.dart';
-import 'package:cook_book/data/dummy_data.dart';
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/login.dart';
 
 import '../../sysdata/services.dart';
 import 'package:flutter/material.dart';
+
+import '../category_screen.dart';
 
 class FavouritesTab extends StatefulWidget {
   @override
@@ -12,22 +15,25 @@ class FavouritesTab extends StatefulWidget {
 
 class _FavouritesTabState extends State<FavouritesTab> {
   double height;
-
   double width;
+  int length;
 
   @override
   Widget build(BuildContext context) {
+    length = CategoryScreen.loadedMeals.length;
     height = Services.height(context);
     width = Services.width(context);
     return Container(
       height: height,
       width: width,
       child: AuthServices.isSignedIn
-          ? DUMMY.favMeals.length > 0
+          ? length > 0
               ? ListView(
-                  children: DUMMY.favMeals.map(
+                  children: CategoryScreen.loadedMeals.map(
                     (meal) {
-                      return MealCard(meal: meal);
+                      if (UserData.likedMealsID.contains(meal.mealID))
+                        return MealCard(meal: meal);
+                      return Loading();
                     },
                   ).toList(),
                 )

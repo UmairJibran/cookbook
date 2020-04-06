@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class CategoryScreen extends StatefulWidget {
   static String pageRoute = "/category_screen";
   final Category category;
-  static bool mealsHasData = false;
+  static bool mealsHasData;
   static List<Meal> loadedMeals;
 
   CategoryScreen({this.category});

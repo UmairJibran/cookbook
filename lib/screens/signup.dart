@@ -17,11 +17,23 @@ class _SignUpState extends State<SignUp> {
   bool _loading = false;
   double height;
   double width;
-  var _formKey = GlobalKey<FormState>();
+  var _formKey;
   String _completeName = '';
   String _email = '';
   String _password = '';
   String _confirmPassword = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _formKey.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

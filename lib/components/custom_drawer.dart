@@ -1,3 +1,4 @@
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
@@ -189,6 +190,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     _loading = true;
                                   });
                                   await _authServices.signOut();
+                                  UserData.likedMealsID = [];
                                   Future.delayed(
                                       const Duration(milliseconds: 500), () {
                                     setState(() {

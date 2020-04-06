@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/models/meal.dart';
+import 'package:cook_book/screens/home_tabs/favourites_tab.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,45 @@ class MealScreen extends StatefulWidget {
 class _MealScreenState extends State<MealScreen> {
   double height;
   double width;
-  int selected;
+  int selected = 0;
   bool liked = false;
   bool checkIfLiked() {
     return UserData.likedMealsID.contains(widget.meal.mealID);
+  }
+
+  void toggleLike() async {
+    String userID;
+    await FirebaseAuth.instance.currentUser().then(
+      (firebaseUser) {
+        userID = firebaseUser.uid;
+      },
+    );
+    if (liked) {
+      UserData.likedMealsID.removeWhere(
+        (id) {
+          if (id == widget.meal.mealID) {
+            return true;
+          }
+        },
+      );
+      await Firestore.instance.collection('users').document(userID).updateData(
+        {
+          'favMeals': UserData.likedMealsID,
+        },
+      );
+    } else {
+      UserData.likedMealsID.add(widget.meal.mealID);
+      await Firestore.instance.collection('users').document(userID).updateData(
+        {
+          'favMeals': UserData.likedMealsID,
+        },
+      );
+    }
+    setState(
+      () {
+        liked = false;
+      },
+    );
   }
 
   @override
@@ -207,21 +243,16 @@ class _MealScreenState extends State<MealScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          !AuthServices.isSignedIn
-                              ? Toast.show(
-                                  "Please Log in to Favourite a Meal",
-                                  context,
-                                  duration: Toast.LENGTH_LONG,
-                                  backgroundColor:
-                                      Theme.of(context).accentColor,
-                                  gravity: Toast.CENTER,
-                                )
-                              : setState(
-                                  () {
-                                    if (liked) {
-                                    } else {}
-                                  },
-                                );
+                          if (!AuthServices.isSignedIn)
+                            Toast.show(
+                              "Please Log in to Favourite a Meal",
+                              context,
+                              duration: Toast.LENGTH_LONG,
+                              backgroundColor: Theme.of(context).accentColor,
+                              gravity: Toast.CENTER,
+                            );
+                          else
+                            toggleLike();
                         },
                         child: Icon(
                           Icons.favorite_border,

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cook_book/models/meal.dart';
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,17 @@ class Services {
 
   static double width(BuildContext context) {
     return MediaQuery.of(context).size.width;
+  }
+
+  static getFavMeals(String userID) async {
+    DocumentSnapshot favMealsFromFirestore =
+        await Firestore.instance.collection('users').document(userID).get();
+
+    await favMealsFromFirestore.data['favMeals'].forEach(
+      (mealID) {
+        UserData.likedMealsID.add(mealID);
+      },
+    );
   }
 }
 
@@ -45,8 +56,8 @@ class AuthServices {
             (QuerySnapshot snapshot) {
               snapshot.documents.forEach((user) {
                 if (user.documentID == firebaseUser.uid) {
-                  print(user['name']);
                   Services.displayName = user['name'];
+                  Services.getFavMeals(firebaseUser.uid.toString());
                 }
               });
             },
@@ -129,6 +140,7 @@ class AuthServices {
           );
       FirebaseUser user = result.user;
       getUserName(result.user.uid);
+      Services.getFavMeals(result.user.uid);
       return _localUser(user);
     } catch (exception) {
       print(exception.toString());
