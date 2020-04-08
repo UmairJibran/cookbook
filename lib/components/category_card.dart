@@ -37,7 +37,9 @@ class _CategoryCardState extends State<CategoryCard> {
         .getDocuments();
     mealDocs.documents.forEach(
       (doc) {
-        CategoryScreen.loadedMeals.add(Meal.fromFirestore(doc));
+        setState(() {
+          CategoryScreen.loadedMeals.add(Meal.fromFirestore(doc));
+        });
       },
     );
     setState(
@@ -66,23 +68,52 @@ class _CategoryCardState extends State<CategoryCard> {
         child: Container(
           width: width,
           height: height * 0.3,
-          margin: EdgeInsets.only(bottom: 2),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: new NetworkImage("${widget.currentCategory.catImageURL}"),
-            ),
-          ),
-          child: Center(
-            child: Container(
-              color: Colors.black12,
-              padding: EdgeInsets.all(15),
-              child: Text(
-                "${widget.currentCategory.catName}",
-                style: Theme.of(context).textTheme.title,
+          margin: EdgeInsets.only(bottom: 1),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                width: width,
+                height: height * 0.3,
+                child: Image.network(
+                  "${widget.currentCategory.catImageURL}",
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  color: Colors.black12,
+                  child: Text(
+                    "${widget.currentCategory.catName}",
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+        // child: Container(
+        //   width: width,
+        //   height: height * 0.3,
+        // margin: EdgeInsets.only(bottom: 1),
+        // decoration: BoxDecoration(
+
+        // ),
+        //   child: Center(
+        //     child: Container(
+        //       color: Colors.black12,
+        // padding: EdgeInsets.all(15),
+        //       child: Image.network(
+        //         "${widget.currentCategory.catImageURL}",
+        //         fit: BoxFit.fitWidth,
+        //       ),
+        //     ),
+        // child: Text(
+        //   "${widget.currentCategory.catName}",
+        //   style: Theme.of(context).textTheme.title,
+        // ),
+        //   ),
+        // ),
       ),
     );
   }

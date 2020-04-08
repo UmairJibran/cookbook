@@ -27,17 +27,8 @@ class _FavouritesTabState extends State<FavouritesTab> {
       height: height,
       width: width,
       child: AuthServices.isSignedIn
-          ? length > 0
-              ? ListView(
-                  children: CategoryScreen.loadedMeals.map(
-                    (meal) {
-                      if (UserData.likedMealsID.contains(meal.mealID))
-                        return MealCard(meal: meal);
-                      return Loading();
-                    },
-                  ).toList(),
-                )
-              : Container(
+          ? UserData.likedMealsID.isEmpty
+              ? Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -56,6 +47,19 @@ class _FavouritesTabState extends State<FavouritesTab> {
                     ],
                   ),
                 )
+              : length > 0
+                  ? ListView.builder(
+                      itemCount: length,
+                      itemBuilder: (_, index) {
+                        if (UserData.likedMealsID
+                            .contains(CategoryScreen.loadedMeals[index].mealID))
+                          return MealCard(
+                              meal: CategoryScreen.loadedMeals[index]);
+                        else
+                          return SizedBox();
+                      },
+                    )
+                  : Loading()
           : Center(
               child: Column(
                 children: <Widget>[

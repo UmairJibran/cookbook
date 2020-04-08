@@ -25,7 +25,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("number of categories ${CategoryScreen.loadedMeals.length}");
     height = Services.height(context);
     width = Services.width(context);
     return Scaffold(
@@ -58,7 +57,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             return MealCard(
                               meal: meal,
                             );
-                          return Loading(label: 'loading');
+                          return SizedBox();
                         },
                       ).toList(),
                     ),
