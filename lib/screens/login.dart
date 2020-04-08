@@ -281,9 +281,10 @@ class _LoginState extends State<Login> {
                       color: Theme.of(context).primaryColor,
                       height: 0.5,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: height * 0.1),
                     Text(
-                      "Or use one of these Methods",
+                      "Other Sign in Methods will be \nadded Soon!",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: "SulphurPoint",
                         fontSize: 22,
@@ -291,63 +292,72 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: width * 0.8,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          InkWell(
-                            borderRadius: BorderRadius.circular(50),
-                            onTap: () {
-                              //TODO: setup signup with google
-                            },
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset(
-                                "assets/icons/google.png",
-                                color: Theme.of(context).accentColor,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            borderRadius: BorderRadius.circular(50),
-                            onTap: () {
-                              //TODO: setup signup with facebook
-                            },
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset(
-                                "assets/icons/facebook.png",
-                                color: Theme.of(context).accentColor,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            borderRadius: BorderRadius.circular(50),
-                            onTap: () {
-                              //TODO: setup signup with twitter
-                            },
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset(
-                                "assets/icons/twitter.png",
-                                color: Theme.of(context).accentColor,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                    // Text(
+                    //   "Or use one of these Methods",
+                    //   style: TextStyle(
+                    //     fontFamily: "SulphurPoint",
+                    //     fontSize: 22,
+                    //     color: Theme.of(context).accentColor,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Container(
+                    //   width: width * 0.8,
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: <Widget>[
+                    //       InkWell(
+                    //         borderRadius: BorderRadius.circular(50),
+                    //         onTap: () {
+                    //           //TODO: setup signup with google
+                    //         },
+                    //         child: Container(
+                    //           height: 80,
+                    //           width: 80,
+                    //           padding: EdgeInsets.all(10),
+                    //           child: Image.asset(
+                    //             "assets/icons/google.png",
+                    //             color: Theme.of(context).accentColor,
+                    //             fit: BoxFit.cover,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       InkWell(
+                    //         borderRadius: BorderRadius.circular(50),
+                    //         onTap: () {
+                    //           //TODO: setup signup with facebook
+                    //         },
+                    //         child: Container(
+                    //           height: 80,
+                    //           width: 80,
+                    //           padding: EdgeInsets.all(10),
+                    //           child: Image.asset(
+                    //             "assets/icons/facebook.png",
+                    //             color: Theme.of(context).accentColor,
+                    //             fit: BoxFit.cover,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       InkWell(
+                    //         borderRadius: BorderRadius.circular(50),
+                    //         onTap: () {
+                    //           //TODO: setup signup with twitter
+                    //         },
+                    //         child: Container(
+                    //           height: 80,
+                    //           width: 80,
+                    //           padding: EdgeInsets.all(10),
+                    //           child: Image.asset(
+                    //             "assets/icons/twitter.png",
+                    //             color: Theme.of(context).accentColor,
+                    //             fit: BoxFit.cover,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ),
               ),

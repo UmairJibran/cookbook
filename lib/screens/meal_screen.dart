@@ -1,13 +1,9 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/models/meal.dart';
-import 'package:cook_book/screens/home_tabs/favourites_tab.dart';
+import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 
 class MealScreen extends StatefulWidget {
   static String pageRoute = "/meal_screen";
@@ -21,44 +17,79 @@ class _MealScreenState extends State<MealScreen> {
   double height;
   double width;
   int selected = 0;
-  bool liked = false;
+  bool liked;
+  String userID = Services.userID;
   bool checkIfLiked() {
     return UserData.likedMealsID.contains(widget.meal.mealID);
   }
 
-  void toggleLike() async {
-    String userID;
-    await FirebaseAuth.instance.currentUser().then(
-      (firebaseUser) {
-        userID = firebaseUser.uid;
+  @override
+  void initState() {
+    super.initState();
+    liked = false;
+  }
+
+  void showModal(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return Container(
+          height: height * 0.35,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Sign In to Favourite\n${widget.meal.mealName}",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.display4,
+                ),
+                SizedBox(height: 30),
+                FlatButton(
+                  color: Theme.of(context).accentColor,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Login.pageRoute);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Log In / Sign Up",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "SulphurPoint",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
+  }
+
+  void toggleLike() {
     if (liked) {
-      UserData.likedMealsID.removeWhere(
-        (id) {
-          if (id == widget.meal.mealID) {
-            return true;
-          }
-        },
-      );
-      await Firestore.instance.collection('users').document(userID).updateData(
-        {
-          'favMeals': UserData.likedMealsID,
-        },
-      );
+      UserData.likedMealsID.removeWhere((mealID) {
+        if (mealID == widget.meal.mealID)
+          return true;
+        else
+          return false;
+      });
     } else {
       UserData.likedMealsID.add(widget.meal.mealID);
-      await Firestore.instance.collection('users').document(userID).updateData(
-        {
-          'favMeals': UserData.likedMealsID,
-        },
-      );
     }
-    setState(
-      () {
-        liked = false;
-      },
-    );
+    setState(() {
+      print(UserData.likedMealsID);
+      checkIfLiked();
+      Firestore.instance
+          .collection('users')
+          .document(Services.userID)
+          .updateData({'favMeals': UserData.likedMealsID});
+    });
   }
 
   @override
@@ -234,33 +265,15 @@ class _MealScreenState extends State<MealScreen> {
                 Positioned(
                   right: 10,
                   top: 10,
-                  child: Stack(
-                    children: <Widget>[
-                      Icon(
-                        (liked) ? Icons.favorite : Icons.favorite_border,
-                        color: Color(0xffFF0000),
-                        size: 28,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          if (!AuthServices.isSignedIn)
-                            Toast.show(
-                              "Please Log in to Favourite a Meal",
-                              context,
-                              duration: Toast.LENGTH_LONG,
-                              backgroundColor: Theme.of(context).accentColor,
-                              gravity: Toast.CENTER,
-                            );
-                          else
-                            toggleLike();
-                        },
-                        child: Icon(
-                          Icons.favorite_border,
-                          color: Colors.black,
-                          size: 28,
-                        ),
-                      )
-                    ],
+                  child: IconButton(
+                    onPressed: AuthServices.isSignedIn
+                        ? toggleLike
+                        : () => showModal(context),
+                    icon: Icon(
+                      liked ? Icons.favorite : Icons.favorite_border,
+                      color: liked ? Colors.red : Colors.black38,
+                      size: 25,
+                    ),
                   ),
                 ),
               ],

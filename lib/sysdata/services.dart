@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 class Services {
   static String displayName = "NULL";
+  static String email;
+  static String userID;
   static double height(BuildContext context) {
     return MediaQuery.of(context).removePadding(removeTop: true).size.height;
   }
@@ -44,6 +46,25 @@ class AuthServices {
     );
   }
 
+  //Get User's Email
+  static void getEmail() async {
+    String userEmail;
+    await FirebaseAuth.instance.currentUser().then((user) {
+      userEmail = user.email.toString();
+    });
+
+    Services.email = userEmail;
+  }
+
+  //Get User's ID
+  static void getUserID() async {
+    String userID;
+    await FirebaseAuth.instance.currentUser().then((user) {
+      userID = user.uid.toString();
+    });
+    Services.userID = userID;
+  }
+
   //Check if user is signed in or not
   static void checkUser() {
     FirebaseAuth.instance.currentUser().then(
@@ -57,11 +78,14 @@ class AuthServices {
               snapshot.documents.forEach((user) {
                 if (user.documentID == firebaseUser.uid) {
                   Services.displayName = user['name'];
+                  Services.email = user['email'];
                   Services.getFavMeals(firebaseUser.uid.toString());
                 }
               });
             },
           );
+          getEmail();
+          getUserID();
         }
       },
     );
@@ -110,6 +134,9 @@ class AuthServices {
       ).timeout(
         Duration(seconds: 10),
       );
+
+      getEmail();
+      getUserID();
       getUserName(result.user.uid);
       return _localUser(user);
     } catch (exception) {
@@ -141,6 +168,9 @@ class AuthServices {
       FirebaseUser user = result.user;
       getUserName(result.user.uid);
       Services.getFavMeals(result.user.uid);
+
+      getEmail();
+      getUserID();
       return _localUser(user);
     } catch (exception) {
       print(exception.toString());

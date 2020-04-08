@@ -3,6 +3,7 @@ import 'package:cook_book/screens/category_screen.dart';
 import 'package:cook_book/screens/home_screen.dart';
 import 'package:cook_book/screens/home_tabs/categories_tab.dart';
 import 'package:cook_book/screens/login.dart';
+import 'package:cook_book/screens/profile.dart';
 import 'package:cook_book/sysdata/services.dart';
 
 import 'package:cook_book/screens/meal_screen.dart';
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         MealScreen.pageRoute: (ctx) => MealScreen(),
         Login.pageRoute: (ctx) => Login(),
         SignUp.pageRoute: (ctx) => SignUp(),
+        UserProfile.pageRoute: (ctx) => UserProfile(),
       },
       theme: ThemeData(
         primarySwatch: Colors.purple,

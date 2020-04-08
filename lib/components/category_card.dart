@@ -92,28 +92,6 @@ class _CategoryCardState extends State<CategoryCard> {
             ],
           ),
         ),
-        // child: Container(
-        //   width: width,
-        //   height: height * 0.3,
-        // margin: EdgeInsets.only(bottom: 1),
-        // decoration: BoxDecoration(
-
-        // ),
-        //   child: Center(
-        //     child: Container(
-        //       color: Colors.black12,
-        // padding: EdgeInsets.all(15),
-        //       child: Image.network(
-        //         "${widget.currentCategory.catImageURL}",
-        //         fit: BoxFit.fitWidth,
-        //       ),
-        //     ),
-        // child: Text(
-        //   "${widget.currentCategory.catName}",
-        //   style: Theme.of(context).textTheme.title,
-        // ),
-        //   ),
-        // ),
       ),
     );
   }
