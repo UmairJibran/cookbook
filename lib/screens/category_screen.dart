@@ -40,15 +40,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
           : Container(
               height: height,
               width: width,
-              child: CategoryScreen.loadedMeals.length < 1
+              child: !CategoryScreen.mealsHasData
                   ? Center(
-                      child: Text(
-                        'Couldn\'t load meals',
-                        style: TextStyle(
-                          fontFamily: "SulphurPoint",
-                          fontSize: 30.0,
-                        ),
-                      ),
+                      child: Loading(label: "Loading Meals"),
                     )
                   : ListView(
                       children: CategoryScreen.loadedMeals.map(

@@ -8,27 +8,60 @@ import 'package:cook_book/sysdata/services.dart';
 
 import 'package:cook_book/screens/meal_screen.dart';
 import 'package:cook_book/screens/signup.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 import 'models/category.dart';
 
 class MyApp extends StatefulWidget {
+  String interstitialAdUnitId = 'ca-app-pub-3311480830735309/6873850482';
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  MobileAdTargetingInfo targetingInfo;
+  InterstitialAd myInterstitial;
   CollectionReference categoriesReference = firestore.collection('categories');
   @override
   void initState() {
     super.initState();
     CategoriesTab.loadedCategories = [];
     getCategories();
+    targetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['flutterio', 'beautiful apps'],
+      contentUrl: 'https://flutter.io',
+      childDirected: true,
+      testDevices: <String>[],
+      nonPersonalizedAds: false,
+    );
+    myInterstitial = InterstitialAd(
+      adUnitId: widget.interstitialAdUnitId,
+      // adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event is $event");
+      },
+    );
+  }
+
+  void _showInterstitialAd() {
+    Future.delayed(Duration(minutes: 5)).then((_) {
+      myInterstitial
+        ..load()
+        ..show(
+          anchorType: AnchorType.bottom,
+          anchorOffset: 0.0,
+          horizontalCenterOffset: 0.0,
+        );
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    myInterstitial?.dispose();
+    myInterstitial = null;
   }
 
   getCategories() async {
@@ -48,6 +81,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     AuthServices.checkUser();
+    _showInterstitialAd();
     return MaterialApp(
       routes: {
         "/": (ctx) => HomeScreen(),

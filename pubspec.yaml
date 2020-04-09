@@ -20,6 +20,7 @@ dependencies:
   animated_text_kit: 
   toast:
   cloud_firestore:
+  firebase_admob:
 dev_dependencies:
   flutter_test:
     sdk: flutter

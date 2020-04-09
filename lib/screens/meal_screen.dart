@@ -3,11 +3,13 @@ import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/models/meal.dart';
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class MealScreen extends StatefulWidget {
   static String pageRoute = "/meal_screen";
   final Meal meal;
+  String bannerAdUnitId = 'ca-app-pub-3311480830735309/5053308832';
   MealScreen({this.meal});
   @override
   _MealScreenState createState() => _MealScreenState();
@@ -19,6 +21,8 @@ class _MealScreenState extends State<MealScreen> {
   int selected = 0;
   bool liked;
   String userID = Services.userID;
+  // MobileAdTargetingInfo targetingInfo;
+  BannerAd myBanner;
   bool checkIfLiked() {
     return UserData.likedMealsID.contains(widget.meal.mealID);
   }
@@ -27,6 +31,35 @@ class _MealScreenState extends State<MealScreen> {
   void initState() {
     super.initState();
     liked = false;
+    // targetingInfo = MobileAdTargetingInfo(
+    //   keywords: <String>['flutterio', 'beautiful apps'],
+    //   contentUrl: 'https://flutter.io',
+    //   childDirected: true,
+    //   testDevices: <String>[],
+    //   nonPersonalizedAds: false,
+    // );
+    myBanner = BannerAd(
+      adUnitId: widget.bannerAdUnitId,
+      // adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.fullBanner,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    myBanner?.dispose();
+    myBanner = null;
+  }
+
+  void _showBannerAd() {
+    myBanner
+      ..load()
+      ..show(
+        anchorOffset: 0.0,
+        horizontalCenterOffset: 0.0,
+        anchorType: AnchorType.bottom,
+      );
   }
 
   void showModal(context) {
@@ -34,7 +67,8 @@ class _MealScreenState extends State<MealScreen> {
       context: context,
       builder: (_) {
         return Container(
-          height: height * 0.35,
+          height: height * 0.37,
+          margin: EdgeInsets.only(bottom: 30),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -95,6 +129,7 @@ class _MealScreenState extends State<MealScreen> {
   @override
   Widget build(BuildContext context) {
     liked = checkIfLiked();
+    _showBannerAd();
     height = Services.height(context);
     width = Services.width(context);
     return Scaffold(

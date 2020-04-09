@@ -22,7 +22,9 @@ class _CategoryCardState extends State<CategoryCard> {
   void initState() {
     super.initState();
     CategoryScreen.loadedMeals = [];
-    getMeals();
+    setState(() {
+      getMeals();
+    });
   }
 
   @override
@@ -37,9 +39,7 @@ class _CategoryCardState extends State<CategoryCard> {
         .getDocuments();
     mealDocs.documents.forEach(
       (doc) {
-        setState(() {
-          CategoryScreen.loadedMeals.add(Meal.fromFirestore(doc));
-        });
+        CategoryScreen.loadedMeals.add(Meal.fromFirestore(doc));
       },
     );
     setState(
