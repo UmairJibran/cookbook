@@ -51,7 +51,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         !AuthServices.isSignedIn
                             ? ListTile(
                                 onTap: () {
-                                  Navigator.pushNamed(context, Login.pageRoute);
+                                  Navigator.popAndPushNamed(
+                                      context, Login.pageRoute);
                                 },
                                 title: Text(
                                   "Log In / Sign Up",

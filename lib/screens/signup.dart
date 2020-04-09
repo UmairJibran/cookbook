@@ -21,7 +21,6 @@ class _SignUpState extends State<SignUp> {
   String _completeName = '';
   String _email = '';
   String _password = '';
-  String _confirmPassword = '';
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void dispose() {
     super.dispose();
-    _formKey.dispose();
+    // _formKey.dispose();
   }
 
   @override
@@ -240,11 +239,6 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                             TextFormField(
-                              onChanged: (value) {
-                                setState(() {
-                                  _confirmPassword = value;
-                                });
-                              },
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return "Please Enter Password";
