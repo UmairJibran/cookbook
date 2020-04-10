@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
 
 void suggestAFeature(context) {
@@ -58,10 +60,13 @@ void suggestAFeature(context) {
           Align(
             alignment: Alignment.bottomRight,
             child: FlatButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_key.currentState.validate()) {
                   _key.currentState.save();
-                  //TODO: set up connection for firebase from here
+                  await Firestore.instance.collection('sugbuck').add({
+                    'requester': Services.displayName ?? 'Anonymous',
+                    'suggesion': suggestion,
+                  });
                   Navigator.pop(context);
                 }
               },

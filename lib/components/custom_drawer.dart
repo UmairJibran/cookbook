@@ -1,3 +1,4 @@
+import 'package:cook_book/components/contact.dart';
 import 'package:cook_book/components/report_a_bug.dart';
 import 'package:cook_book/components/suggest_a_feature.dart';
 import 'package:cook_book/data/user_data.dart';
@@ -171,6 +172,24 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                           leading: Icon(
                             Icons.comment,
+                            color: Colors.black,
+                          ),
+                        ),
+                        ListTile(
+                          onTap: () {
+                            contact(context);
+                          },
+                          title: Text(
+                            "Contact",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "SulphurPoint",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          leading: Icon(
+                            Icons.phone_iphone,
                             color: Colors.black,
                           ),
                         ),

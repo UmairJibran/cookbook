@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Services {
-  static String displayName = "NULL";
+  static String displayName;
   static String email;
   static String userID;
   static double height(BuildContext context) {
