@@ -20,11 +20,26 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   double height;
-
+  bool loading = true;
   double width;
+  void checkMeals() {
+    if (!CategoryScreen.mealsHasData || CategoryScreen.loadedMeals.isEmpty) {
+      setState(() {
+        Future.delayed(Duration(milliseconds: 200)).then((_) {
+          loading = true;
+          checkMeals();
+        });
+      });
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    checkMeals();
     height = Services.height(context);
     width = Services.width(context);
     return Scaffold(
@@ -33,28 +48,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
           "${widget.category.catName}",
         ),
       ),
-      body: !CategoryScreen.mealsHasData
+      body: loading
           ? Loading(
               label: "Loading Meals",
             )
-          : Container(
-              height: height,
-              width: width,
-              child: !CategoryScreen.mealsHasData
-                  ? Center(
-                      child: Loading(label: "Loading Meals"),
-                    )
-                  : ListView(
-                      children: CategoryScreen.loadedMeals.map(
-                        (meal) {
-                          if (widget.category.catID == meal.catID)
-                            return MealCard(
-                              meal: meal,
-                            );
-                          return SizedBox();
-                        },
-                      ).toList(),
-                    ),
+          : ListView(
+              children: CategoryScreen.loadedMeals.map(
+                (meal) {
+                  if (widget.category.catID == meal.catID)
+                    return MealCard(
+                      meal: meal,
+                    );
+                  return SizedBox();
+                },
+              ).toList(),
             ),
     );
   }

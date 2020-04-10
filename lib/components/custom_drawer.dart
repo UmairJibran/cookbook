@@ -1,6 +1,9 @@
+import 'package:cook_book/components/report_a_bug.dart';
+import 'package:cook_book/components/suggest_a_feature.dart';
 import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/screens/profile.dart';
+import 'package:cook_book/screens/resources.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
 
@@ -108,19 +111,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          leading: IconButton(
-                            icon: Icon(
-                              Icons.notifications,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              //
-                            },
+                          leading: Icon(
+                            Icons.notifications,
+                            color: Colors.black,
                           ),
                         ),
                         ListTile(
                           onTap: () {
-                            //
+                            Navigator.of(context)
+                                .pushNamed(ResourcesPage.pageRoute);
                           },
                           title: Text(
                             "Resources",
@@ -140,7 +139,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         ),
                         ListTile(
                           onTap: () {
-                            //
+                            reportABug(context);
                           },
                           title: Text(
                             "Report a Bug",
@@ -151,20 +150,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          leading: IconButton(
-                            icon: Icon(
-                              Icons.bug_report,
-                              color: Colors.black,
-                              size: 30,
-                            ),
-                            onPressed: () {
-                              //
-                            },
+                          leading: Icon(
+                            Icons.bug_report,
+                            color: Colors.black,
+                            size: 30,
                           ),
                         ),
                         ListTile(
                           onTap: () {
-                            //
+                            suggestAFeature(context);
                           },
                           title: Text(
                             "Suggest a Feature",
@@ -175,14 +169,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          leading: IconButton(
-                            icon: Icon(
-                              Icons.comment,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              //
-                            },
+                          leading: Icon(
+                            Icons.comment,
+                            color: Colors.black,
                           ),
                         ),
                         AuthServices.isSignedIn
