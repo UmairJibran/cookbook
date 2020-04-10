@@ -37,16 +37,12 @@ class _MyAppState extends State<MyApp> {
     );
     myInterstitial = InterstitialAd(
       adUnitId: widget.interstitialAdUnitId,
-      // adUnitId: InterstitialAd.testAdUnitId,
       targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("InterstitialAd event is $event");
-      },
     );
   }
 
   void _showInterstitialAd() {
-    Future.delayed(Duration(minutes: 5)).then((_) {
+    Future.delayed(Duration(seconds: 180)).then((_) {
       myInterstitial
         ..load()
         ..show(

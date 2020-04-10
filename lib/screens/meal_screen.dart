@@ -31,16 +31,8 @@ class _MealScreenState extends State<MealScreen> {
   void initState() {
     super.initState();
     liked = false;
-    // targetingInfo = MobileAdTargetingInfo(
-    //   keywords: <String>['flutterio', 'beautiful apps'],
-    //   contentUrl: 'https://flutter.io',
-    //   childDirected: true,
-    //   testDevices: <String>[],
-    //   nonPersonalizedAds: false,
-    // );
     myBanner = BannerAd(
       adUnitId: widget.bannerAdUnitId,
-      // adUnitId: BannerAd.testAdUnitId,
       size: AdSize.fullBanner,
     );
   }

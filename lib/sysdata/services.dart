@@ -181,6 +181,7 @@ class AuthServices {
   //SignOut
   Future signOut() async {
     try {
+      UserData.likedMealsID = [];
       return _auth.signOut();
     } catch (exception) {
       print(exception.toString());
