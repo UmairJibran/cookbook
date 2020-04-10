@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/components/loading.dart';
 import 'package:cook_book/components/password_reset_dialog_box.dart';
 import 'package:cook_book/screens/home_screen.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
   static String pageRoute = "/login";
-  AuthServices authServices = AuthServices();
+  final AuthServices authServices = AuthServices();
   @override
   _LoginState createState() => _LoginState();
 }
@@ -112,6 +111,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             TextFormField(
+                              initialValue: _email,
                               onChanged: (value) {
                                 setState(() {
                                   _email = value;

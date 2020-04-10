@@ -4,8 +4,6 @@ import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'home_screen.dart';
-
 class SignUp extends StatefulWidget {
   static final String pageRoute = "/signUp";
   final AuthServices authServices = AuthServices();
@@ -116,6 +114,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                             TextFormField(
+                              initialValue: _completeName,
                               onChanged: (value) {
                                 setState(() {
                                   _completeName = value;
@@ -135,9 +134,9 @@ class _SignUpState extends State<SignUp> {
                                     value.contains('7') ||
                                     value.contains('8') ||
                                     value.contains('9') ||
-                                    value.contains('00')) {
+                                    value.contains('0')) {
                                   return "Name can not have numbers";
-                                } else if (value.length < 3) {
+                                } else if (value.trim().length < 3) {
                                   return "Please Enter your Complete Name";
                                 } else {
                                   return null;
@@ -164,6 +163,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                             TextFormField(
+                              initialValue: _email,
                               onChanged: (value) {
                                 setState(() {
                                   _email = value;
@@ -314,13 +314,7 @@ class _SignUpState extends State<SignUp> {
                                   print("Couldn't sign in");
                                 } else {
                                   AuthServices.isSignedIn = true;
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomeScreen(),
-                                    ),
-                                  );
+                                  Navigator.pushReplacementNamed(context, '/');
                                 }
                               }
                             },
