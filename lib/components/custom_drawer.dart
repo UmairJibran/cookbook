@@ -1,7 +1,6 @@
 import 'package:cook_book/components/contact.dart';
 import 'package:cook_book/components/report_a_bug.dart';
 import 'package:cook_book/components/suggest_a_feature.dart';
-
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/screens/notification_screen.dart';
 import 'package:cook_book/screens/profile.dart';
