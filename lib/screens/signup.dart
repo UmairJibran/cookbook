@@ -83,7 +83,6 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(height: 20),
                     Container(
                       width: width * 0.9,
-                      height: height * 0.52,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -261,7 +260,7 @@ class _SignUpState extends State<SignUp> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 30),
                           ],
                         ),
                       ),

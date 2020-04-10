@@ -80,7 +80,6 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 20),
                     Container(
                       width: width * 0.9,
-                      height: height * 0.33,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -206,7 +205,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Container(
                       width: width * 0.9,
                       child: Row(
