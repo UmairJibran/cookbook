@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cook_book/components/loading.dart';
 import 'package:cook_book/screens/login.dart';
 import 'package:cook_book/sysdata/services.dart';
@@ -19,10 +20,12 @@ class _SignUpState extends State<SignUp> {
   String _completeName = '';
   String _email = '';
   String _password = '';
-
+  String _errorMessage = '';
+  bool _wrongCred;
   @override
   void initState() {
     super.initState();
+    _wrongCred = false;
     _formKey = GlobalKey<FormState>();
   }
 
@@ -266,6 +269,27 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     SizedBox(height: 10),
+                    _wrongCred
+                        ? Container(
+                            width: width * 0.9,
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: Center(
+                              child: AutoSizeText(
+                                '$_errorMessage',
+                                maxLines: 3,
+                                maxFontSize: 16,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontFamily: 'SulphurPoint',
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            height: 14,
+                          ),
                     Container(
                       width: width * 0.9,
                       child: Row(
@@ -306,11 +330,12 @@ class _SignUpState extends State<SignUp> {
                                   password: _password,
                                   displayName: _completeName,
                                 );
-                                if (result == null) {
+                                if (result != null) {
                                   setState(() {
+                                    _errorMessage = result;
+                                    _wrongCred = true;
                                     _loading = false;
                                   });
-                                  print("Couldn't sign in");
                                 } else {
                                   AuthServices.isSignedIn = true;
                                   Navigator.pushReplacementNamed(context, '/');

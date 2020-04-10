@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cook_book/components/loading.dart';
 import 'package:cook_book/components/password_reset_dialog_box.dart';
 import 'package:cook_book/screens/home_screen.dart';
@@ -18,10 +19,14 @@ class _LoginState extends State<Login> {
   String _password = '';
   double height;
   double width;
-  bool _loading = false;
+  bool _loading;
+  bool _loginFailed;
+  String errorMessage;
   @override
   void initState() {
     super.initState();
+    _loading = false;
+    _loginFailed = false;
     _key = GlobalKey<FormState>();
   }
 
@@ -206,6 +211,27 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     SizedBox(height: 20),
+                    _loginFailed
+                        ? Container(
+                            width: width * 0.9,
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: Center(
+                              child: AutoSizeText(
+                                '$errorMessage',
+                                maxLines: 3,
+                                maxFontSize: 16,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontFamily: 'SulphurPoint',
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            height: 14,
+                          ),
                     Container(
                       width: width * 0.9,
                       child: Row(
@@ -217,7 +243,8 @@ class _LoginState extends State<Login> {
                               horizontal: 25,
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushNamed(SignUp.pageRoute);
+                              Navigator.of(context)
+                                  .pushReplacementNamed(SignUp.pageRoute);
                             },
                             child: Text(
                               "Sign Up",
@@ -245,11 +272,12 @@ class _LoginState extends State<Login> {
                                   email: _email,
                                   password: _password,
                                 );
-                                if (result == null) {
+                                if (result != null) {
                                   setState(() {
+                                    errorMessage = result;
+                                    _loginFailed = true;
                                     _loading = false;
                                   });
-                                  print("Couldn't sign in");
                                 } else {
                                   AuthServices.isSignedIn = true;
                                   Navigator.pushReplacement(

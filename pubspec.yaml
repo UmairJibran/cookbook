@@ -22,7 +22,8 @@ dependencies:
   cloud_firestore:
   firebase_admob:
   line_icons:
-  open_iconic_flutter: ^0.3.0
+  open_iconic_flutter:
+  auto_size_text:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -104,7 +104,6 @@ class AuthServices {
       _auth.sendPasswordResetEmail(email: email);
       return true;
     } catch (exception) {
-      print(exception.toString());
       return false;
     }
   }
@@ -138,10 +137,11 @@ class AuthServices {
       getEmail();
       getUserID();
       getUserName(result.user.uid);
-      return _localUser(user);
+      _localUser(user);
+      return null;
     } catch (exception) {
       print(exception.toString());
-      return null;
+      return exception.message;
     }
   }
 
@@ -171,10 +171,10 @@ class AuthServices {
 
       getEmail();
       getUserID();
-      return _localUser(user);
-    } catch (exception) {
-      print(exception.toString());
+      _localUser(user);
       return null;
+    } catch (exception) {
+      return exception.message;
     }
   }
 
