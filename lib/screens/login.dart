@@ -278,6 +278,12 @@ class _LoginState extends State<Login> {
                                     _loginFailed = true;
                                     _loading = false;
                                   });
+                                  Future.delayed(Duration(seconds: 5))
+                                      .then((_) {
+                                    setState(() {
+                                      _loginFailed = false;
+                                    });
+                                  });
                                 } else {
                                   AuthServices.isSignedIn = true;
                                   Navigator.pushReplacement(

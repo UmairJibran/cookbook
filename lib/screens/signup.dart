@@ -336,6 +336,12 @@ class _SignUpState extends State<SignUp> {
                                     _wrongCred = true;
                                     _loading = false;
                                   });
+                                  Future.delayed(Duration(seconds: 5))
+                                      .then((_) {
+                                    setState(() {
+                                      _wrongCred = false;
+                                    });
+                                  });
                                 } else {
                                   AuthServices.isSignedIn = true;
                                   Navigator.pushReplacementNamed(context, '/');
