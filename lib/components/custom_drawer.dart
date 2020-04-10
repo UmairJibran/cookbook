@@ -1,12 +1,14 @@
 import 'package:cook_book/components/contact.dart';
 import 'package:cook_book/components/report_a_bug.dart';
 import 'package:cook_book/components/suggest_a_feature.dart';
-import 'package:cook_book/data/user_data.dart';
+
 import 'package:cook_book/screens/login.dart';
+import 'package:cook_book/screens/notification_screen.dart';
 import 'package:cook_book/screens/profile.dart';
 import 'package:cook_book/screens/resources.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
+import 'package:open_iconic_flutter/open_iconic_flutter.dart';
 
 import 'loading.dart';
 
@@ -67,15 +69,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                leading: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0.0, 5.0, 0.0, 5.0),
-                                  child: Image.asset(
-                                    "assets/icons/user.png",
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
+                                leading: Icon(
+                                  OpenIconicIcons.accountLogin,
+                                  color: Colors.black,
+                                ))
                             : ListTile(
                                 onTap: () {
                                   Navigator.of(context)
@@ -90,18 +87,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                leading: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0.0, 5.0, 0.0, 5.0),
-                                  child: Image.asset(
-                                    "assets/icons/user.png",
-                                    color: Colors.black,
-                                  ),
+                                leading: Icon(
+                                  OpenIconicIcons.person,
+                                  color: Colors.black,
                                 ),
                               ),
                         ListTile(
                           onTap: () {
-                            //
+                            Navigator.pushNamed(
+                                context, NotificationScreen.pageRoute);
                           },
                           title: Text(
                             "Notifications",
@@ -113,7 +107,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             ),
                           ),
                           leading: Icon(
-                            Icons.notifications,
+                            OpenIconicIcons.bell,
                             color: Colors.black,
                           ),
                         ),
@@ -131,11 +125,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Image.asset(
-                              "assets/icons/support.png",
-                            ),
+                          leading: Icon(
+                            OpenIconicIcons.hardDrive,
+                            color: Colors.black,
                           ),
                         ),
                         ListTile(
@@ -152,7 +144,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             ),
                           ),
                           leading: Icon(
-                            Icons.bug_report,
+                            OpenIconicIcons.bug,
                             color: Colors.black,
                             size: 30,
                           ),
@@ -171,7 +163,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             ),
                           ),
                           leading: Icon(
-                            Icons.comment,
+                            OpenIconicIcons.plus,
                             color: Colors.black,
                           ),
                         ),
@@ -189,7 +181,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             ),
                           ),
                           leading: Icon(
-                            Icons.phone_iphone,
+                            OpenIconicIcons.phone,
                             color: Colors.black,
                           ),
                         ),
@@ -217,13 +209,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                leading: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0.0, 5.0, 0.0, 5.0),
-                                  child: Image.asset(
-                                    "assets/icons/sign_out.png",
-                                    color: Colors.black,
-                                  ),
+                                leading: Icon(
+                                  OpenIconicIcons.accountLogout,
+                                  color: Colors.black,
                                 ),
                               )
                             : SizedBox(),
