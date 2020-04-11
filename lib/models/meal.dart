@@ -11,6 +11,7 @@ class Meal {
   bool isHalal;
   bool isVegan;
   bool isVegitarian;
+  int serving;
   // int totalFavs;
   List<dynamic> mealIngredients;
   List<dynamic> prepSteps;
@@ -28,6 +29,7 @@ class Meal {
     @required this.mealName,
     @required this.prepSteps,
     @required this.prepTime,
+    @required this.serving,
     // @required this.totalFavs,
   });
 
@@ -45,6 +47,7 @@ class Meal {
       isVegitarian: doc['isVegitarian'],
       mealIngredients: doc['mealIngredients'],
       prepSteps: doc['prepSteps'],
+      serving: doc['serving'],
     );
   }
 }

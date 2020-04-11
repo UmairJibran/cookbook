@@ -65,10 +65,15 @@ class _MealScreenState extends State<MealScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  "Sign In to Favourite\n${widget.meal.mealName}",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.display4,
+                Container(
+                  width: width,
+                  height: height * 0.165,
+                  child: Text(
+                    "Sign In to Favourite\n${widget.meal.mealName}",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.display4,
+                  ),
                 ),
                 SizedBox(height: 30),
                 FlatButton(
@@ -146,33 +151,47 @@ class _MealScreenState extends State<MealScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Text(
-                  "Vegan",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: (widget.meal.isVegan)
-                        ? Color(0xff12D132)
-                        : Color(0xffFF0000),
-                  ),
-                ),
-                Text(
-                  "Vegitarian",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: (widget.meal.isVegitarian)
-                        ? Color(0xff12D132)
-                        : Color(0xffFF0000),
-                  ),
-                ),
-                Text(
-                  "Halal",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: (widget.meal.isHalal)
-                        ? Color(0xff12D132)
-                        : Color(0xffFF0000),
-                  ),
-                ),
+                (widget.meal.isVegan)
+                    ? Text(
+                        "Vegan",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff12D132),
+                        ),
+                      )
+                    : Text(
+                        "Non-Vegan",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xffFF0000),
+                        ),
+                      ),
+                (widget.meal.isVegitarian)
+                    ? Text(
+                        "Vegitarian",
+                        style:
+                            TextStyle(fontSize: 20, color: Color(0xff12D132)),
+                      )
+                    : Text(
+                        "Non Vegitarian",
+                        style:
+                            TextStyle(fontSize: 20, color: Color(0xffFF0000)),
+                      ),
+                (widget.meal.isHalal)
+                    ? Text(
+                        "Halal",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff12D132),
+                        ),
+                      )
+                    : Text(
+                        "Halal",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xffFF0000),
+                        ),
+                      ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -226,6 +245,20 @@ class _MealScreenState extends State<MealScreen> {
                             "Ingredients",
                             style: Theme.of(context).textTheme.display4,
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 60.0),
+                            child: Text(
+                              widget.meal.serving == 1
+                                  ? "for ${widget.meal.serving.toString()} person"
+                                  : "for ${widget.meal.serving.toString()} people",
+                              style: TextStyle(
+                                fontFamily: "SulphurPoint",
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
                           SizedBox(
                             height: 10,
                           ),
@@ -267,7 +300,7 @@ class _MealScreenState extends State<MealScreen> {
                             height: 10,
                           ),
                           Container(
-                            height: height * 0.3,
+                            height: height * 0.325,
                             child: Scrollbar(
                               child: ListView(
                                 children: widget.meal.prepSteps.map(
