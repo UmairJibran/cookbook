@@ -175,7 +175,7 @@ class _SignUpState extends State<SignUp> {
                                 if (value.isEmpty) {
                                   return "Please Enter your Email";
                                 } else if (value.contains(' ') ||
-                                    !(value.contains('@') ||
+                                    !(value.contains('@') &&
                                         value.contains('.'))) {
                                   return "Please Enter a valid Email";
                                 } else {

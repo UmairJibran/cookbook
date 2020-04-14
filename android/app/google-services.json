@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "1094884758865",
-    "firebase_url": "https://cookbook-b7a86.firebaseio.com",
-    "project_id": "cookbook-b7a86",
-    "storage_bucket": "cookbook-b7a86.appspot.com"
+    "project_number": "578039726929",
+    "firebase_url": "https://jbsofts-8550c.firebaseio.com",
+    "project_id": "jbsofts-8550c",
+    "storage_bucket": "jbsofts-8550c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1094884758865:android:6a434f98edc7206103ef70",
+        "mobilesdk_app_id": "1:578039726929:android:2fd08acd355de26d2e4970",
         "android_client_info": {
           "package_name": "com.umairjibran.cookbook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1094884758865-6kiald5f4qns944vrm2ueiil1aj0vala.apps.googleusercontent.com",
+          "client_id": "578039726929-v1cucfq2tpj0algapquabgnc7rtjeld5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umairjibran.cookbook",
+            "certificate_hash": "f81c807a212863bc1a36d1f1f82e187171ba212d"
+          }
+        },
+        {
+          "client_id": "578039726929-d650nnso3ujf6efdqaiu9ht86g32ooiv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDh5Syxq1mzwo19flAXVkgjI4A7T-ykXeM"
+          "current_key": "AIzaSyD_r5wtlSKx0qjgpUbcR4iVVLRvSWd-MTU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1094884758865-6kiald5f4qns944vrm2ueiil1aj0vala.apps.googleusercontent.com",
+              "client_id": "578039726929-d650nnso3ujf6efdqaiu9ht86g32ooiv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
