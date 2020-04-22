@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/category_screen.dart';
 import 'package:cook_book/screens/home_screen.dart';
 import 'package:cook_book/screens/home_tabs/categories_tab.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'models/category.dart';
 
 class MyApp extends StatefulWidget {
-  String interstitialAdUnitId = 'ca-app-pub-3311480830735309/6873850482';
+  final String interstitialAdUnitId = 'ca-app-pub-3311480830735309/6873850482';
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -159,29 +160,6 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      // home: BlocBuilder<NavigationBloc, NavigationState>(
-      //   builder: (_, state) {
-      //     print("State is -> $state");
-      //     if (state is NavigationInitial) {
-      //       return HomeScreen();
-      //     } else if (state is NavigateToAllMeals) {
-      //       return CategoryScreen(
-      //         catName: state.category.catName,
-      //         meals: state.category.meals,
-      //       );
-      //     } else if (state is NavigateToSingleMeal) {
-      //       return MealScreen(
-      //         meal: state.meal,
-      //       );
-      //     } else {
-      //       return Scaffold(
-      //         body: Center(
-      //           child: CircularProgressIndicator(),
-      //         ),
-      //       );
-      //     }
-      //   },
-      // ),
     );
   }
 }

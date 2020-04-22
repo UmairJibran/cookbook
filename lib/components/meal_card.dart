@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/data/user_data.dart';
 import 'package:cook_book/screens/meal_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/meal.dart';
 

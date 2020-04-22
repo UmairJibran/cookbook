@@ -17,14 +17,11 @@ class Services {
   }
 
   static getFavMeals(String userID) async {
-    DocumentSnapshot favMealsFromFirestore =
+    var document =
         await Firestore.instance.collection('users').document(userID).get();
-
-    await favMealsFromFirestore.data['favMeals'].forEach(
-      (mealID) {
-        UserData.likedMealsID.add(mealID);
-      },
-    );
+    await document.data['favMeals'].forEach((mealID) {
+      UserData.likedMealsID.add(mealID.toString());
+    });
   }
 }
 

@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/models/category.dart';
-import 'package:cook_book/models/meal.dart';
 import 'package:cook_book/screens/category_screen.dart';
-import 'package:cook_book/screens/home_tabs/categories_tab.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
 
@@ -17,36 +14,15 @@ class CategoryCard extends StatefulWidget {
 class _CategoryCardState extends State<CategoryCard> {
   double width;
   double height;
-  CollectionReference mealsReference = firestore.collection('meals');
+
   @override
   void initState() {
     super.initState();
-    CategoryScreen.loadedMeals = [];
-    setState(() {
-      getMeals();
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  getMeals() async {
-    QuerySnapshot mealDocs = await mealsReference
-        .document(widget.currentCategory.catID)
-        .collection('allMeals')
-        .getDocuments();
-    mealDocs.documents.forEach(
-      (doc) {
-        CategoryScreen.loadedMeals.add(Meal.fromFirestore(doc));
-      },
-    );
-    setState(
-      () {
-        CategoryScreen.mealsHasData = true;
-      },
-    );
   }
 
   @override

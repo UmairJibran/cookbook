@@ -114,7 +114,6 @@ class _MealScreenState extends State<MealScreen> {
       UserData.likedMealsID.add(widget.meal.mealID);
     }
     setState(() {
-      print(UserData.likedMealsID);
       checkIfLiked();
       Firestore.instance
           .collection('users')
