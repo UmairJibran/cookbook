@@ -64,7 +64,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   getCategories() async {
-    QuerySnapshot catDocs = await categoriesReference.getDocuments();
+    QuerySnapshot catDocs = await categoriesReference
+        .orderBy('timeStamp', descending: true)
+        .getDocuments();
     catDocs.documents.forEach(
       (doc) {
         CategoriesTab.loadedCategories.add(Category.fromFirestore(doc));

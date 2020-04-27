@@ -53,7 +53,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   void loadMeals() async {
     Firestore _firestore = Firestore.instance;
-    var documents = await _firestore.collection('meals').getDocuments();
+    var documents = await _firestore
+        .collection('meals')
+        .orderBy('timeStamp', descending: true)
+        .getDocuments();
     documents.documents.forEach((doc) {
       String a = widget.category.catID.trim();
       String b = doc['catID'].toString().trim();

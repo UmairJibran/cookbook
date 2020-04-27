@@ -262,7 +262,7 @@ class _MealScreenState extends State<MealScreen> {
                             height: 10,
                           ),
                           Container(
-                            height: height * 0.30,
+                            height: height * 0.29,
                             child: Scrollbar(
                               child: ListView(
                                 children: widget.meal.mealIngredients.map(
