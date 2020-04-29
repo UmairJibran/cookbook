@@ -1,3 +1,4 @@
+import 'package:cook_book/screens/add_meal_screen.dart';
 import 'package:cook_book/sysdata/services.dart';
 import 'package:flutter/material.dart';
 
@@ -65,6 +66,27 @@ class _UserProfileState extends State<UserProfile> {
                         fontSize: 20,
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, AddMeal.pageRoute);
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        child: Text(
+                          'Add your Special',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      color: Theme.of(context).accentColor.withOpacity(0.9),
+                    )
                   ],
                 ),
               ),

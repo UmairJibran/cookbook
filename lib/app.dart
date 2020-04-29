@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_book/data/user_data.dart';
+import 'package:cook_book/screens/add_meal_screen.dart';
 import 'package:cook_book/screens/category_screen.dart';
 import 'package:cook_book/screens/home_screen.dart';
 import 'package:cook_book/screens/home_tabs/categories_tab.dart';
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
         UserProfile.pageRoute: (ctx) => UserProfile(),
         ResourcesPage.pageRoute: (ctx) => ResourcesPage(),
         NotificationScreen.pageRoute: (ctx) => NotificationScreen(),
+        AddMeal.pageRoute: (ctx) => AddMeal(),
       },
       theme: ThemeData(
         primarySwatch: Colors.purple,
@@ -132,26 +134,26 @@ class _MyAppState extends State<MyApp> {
             color: Colors.white,
           ),
           body1: TextStyle(
-            fontFamily: "Angostura-Gaunt",
+            fontFamily: "SulphurPoint",
             color: Colors.black,
             fontSize: 26,
           ),
           body2: TextStyle(
             fontFamily: "Angostura-Gaunt",
             color: Colors.black,
-            fontSize: 20,
+            fontSize: 18,
           ),
           display2: TextStyle(
             fontFamily: "Angostura-Gaunt",
             color: Colors.black,
-            fontSize: 22,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
           display3: TextStyle(
             fontFamily: "Angostura-Gaunt",
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 17,
+            fontSize: 18,
           ),
           display4: TextStyle(
             fontFamily: "SulphurPoint",

@@ -24,6 +24,9 @@ dependencies:
   line_icons:
   open_iconic_flutter:
   auto_size_text:
+  uuid:
+  path_provider:
+  image_picker:
 dev_dependencies:
   flutter_test:
     sdk: flutter
