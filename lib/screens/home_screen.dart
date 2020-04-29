@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     width = Services.width(context);
     height = Services.height(context);
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           elevation: 10,
@@ -47,16 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: Theme.of(context).textTheme.subtitle,
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //     bottom: 10,
-              //     top: 10,
-              //   ),
-              //   child: Text(
-              //     "Popular",
-              //     style: Theme.of(context).textTheme.subtitle,
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 10,
+                  top: 10,
+                ),
+                child: Text(
+                  "Popular",
+                  style: Theme.of(context).textTheme.subtitle,
+                ),
+              ),
             ],
           ),
           title: Center(
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             CategoriesTab(),
             FavouritesTab(),
-            // PopularTab(), //TODO: Complete the Logic
+            PopularTab(),
           ],
         ),
       ),

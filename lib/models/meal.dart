@@ -12,7 +12,7 @@ class Meal {
   bool isVegan;
   bool isVegitarian;
   int serving;
-  // int totalFavs;
+  int totalLikes;
   List<dynamic> mealIngredients;
   List<dynamic> prepSteps;
 
@@ -30,7 +30,7 @@ class Meal {
     @required this.prepSteps,
     @required this.prepTime,
     @required this.serving,
-    // @required this.totalFavs,
+    @required this.totalLikes,
   });
 
   factory Meal.fromFirestore(doc) {
@@ -48,6 +48,7 @@ class Meal {
       mealIngredients: doc['mealIngredients'],
       prepSteps: doc['prepSteps'],
       serving: doc['serving'],
+      totalLikes: doc['totalLikes'],
     );
   }
 }

@@ -110,8 +110,20 @@ class _MealScreenState extends State<MealScreen> {
         else
           return false;
       });
+      Firestore.instance
+          .collection('meals')
+          .document(widget.meal.mealID)
+          .updateData({
+        'totalLikes': widget.meal.totalLikes - 1,
+      });
     } else {
       UserData.likedMealsID.add(widget.meal.mealID);
+      Firestore.instance
+          .collection('meals')
+          .document(widget.meal.mealID)
+          .updateData({
+        'totalLikes': widget.meal.totalLikes + 1,
+      });
     }
     setState(() {
       checkIfLiked();
@@ -124,6 +136,7 @@ class _MealScreenState extends State<MealScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.meal.totalLikes);
     liked = checkIfLiked();
     _showBannerAd();
     height = Services.height(context);
