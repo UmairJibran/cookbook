@@ -14,10 +14,10 @@ dependencies:
   firebase_auth:
   firebase_core:
   firebase_analytics:
-  http: 
+  http:
   firebase_storage:
   flutter_spinkit:
-  animated_text_kit: 
+  animated_text_kit:
   toast:
   cloud_firestore:
   firebase_admob:
@@ -27,10 +27,11 @@ dependencies:
   uuid:
   path_provider:
   image_picker:
+  image:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-flutter:  
+flutter:
   uses-material-design: true
   assets:
     - assets/images/
